@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
+
 import 'package:flutter_bottom_tabbar_with_fab_button/page/chat.dart';
 import 'package:flutter_bottom_tabbar_with_fab_button/page/dashboard.dart';
 import 'package:flutter_bottom_tabbar_with_fab_button/page/profile.dart';
@@ -24,6 +26,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text(''),
       ),
+      // extendBody: true,
       body: PageStorage(
         child: currentScreen,
         bucket: bucket,
@@ -33,19 +36,24 @@ class _HomeState extends State<Home> {
         child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.blue,
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 10,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 10.0, right: 5, left: 5),
         child: Container(
-          height: 60,
-          margin: const EdgeInsets.only(bottom: 30),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(80)),
+          child: BottomAppBar(
+            elevation: 5,
+            color: Colors.red,
+            shape: const CircularNotchedRectangle(),
+            notchMargin: 10,
+            child: AnimatedContainer(
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(80)),
+              height: 60,
+              duration: Duration(milliseconds: 300),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(children: [
                     MaterialButton(
                       onPressed: () {
                         setState(() {
@@ -62,7 +70,7 @@ class _HomeState extends State<Home> {
                             color: currentTab == 0 ? Colors.blue : Colors.grey,
                           ),
                           Text(
-                            'DAshboard',
+                            'board',
                             style: TextStyle(
                                 color: currentTab == 0
                                     ? Colors.blue
@@ -97,59 +105,65 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ]),
-              Row(
-                children: [
-                  MaterialButton(
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = Profile();
-                        currentTab = 2;
-                      });
-                    },
-                    minWidth: 40,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.verified_user,
-                          color: currentTab == 2 ? Colors.blue : Colors.grey,
-                        ),
-                        Text(
-                          'Profile',
-                          style: TextStyle(
+                  Row(
+                    children: [
+                      MaterialButton(
+                        onPressed: () {
+                          setState(() {
+                            currentScreen = Profile();
+                            currentTab = 2;
+                          });
+                        },
+                        minWidth: 40,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.verified_user,
                               color:
-                                  currentTab == 2 ? Colors.blue : Colors.grey),
-                        )
-                      ],
-                    ),
-                  ),
-                  MaterialButton(
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = Setting();
-                        currentTab = 3;
-                      });
-                    },
-                    minWidth: 40,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.settings,
-                          color: currentTab == 3 ? Colors.blue : Colors.grey,
+                                  currentTab == 2 ? Colors.blue : Colors.grey,
+                            ),
+                            Text(
+                              'Profile',
+                              style: TextStyle(
+                                  color: currentTab == 2
+                                      ? Colors.blue
+                                      : Colors.grey),
+                            )
+                          ],
                         ),
-                        Text(
-                          'Setting',
-                          style: TextStyle(
+                      ),
+                      MaterialButton(
+                        onPressed: () {
+                          setState(() {
+                            currentScreen = Setting();
+                            currentTab = 3;
+                          });
+                        },
+                        minWidth: 40,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.settings,
                               color:
-                                  currentTab == 3 ? Colors.blue : Colors.grey),
-                        )
-                      ],
-                    ),
+                                  currentTab == 3 ? Colors.blue : Colors.grey,
+                            ),
+                            Text(
+                              'Setting',
+                              style: TextStyle(
+                                  color: currentTab == 3
+                                      ? Colors.blue
+                                      : Colors.grey),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
                   )
                 ],
-              )
-            ],
+              ),
+            ),
           ),
         ),
       ),
